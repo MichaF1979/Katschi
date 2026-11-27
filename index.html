@@ -204,6 +204,16 @@
       .card { border-radius: 22px; }
     }
 
+    @media (orientation: portrait) {
+      main { width: min(100%, 560px); }
+      .grid {
+        max-width: 420px;
+        margin-inline: auto;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .card { padding-block: clamp(30px, 6vh, 52px); }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
     }
