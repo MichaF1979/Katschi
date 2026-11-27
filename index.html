@@ -200,8 +200,15 @@
     #message { min-height: 1.2em; margin: 0; color: var(--gold); font-size: .88rem; }
 
     @media (max-width: 480px) {
-      body { padding-inline: 14px; background-position: 48% center; }
+      body { padding-inline: 14px; background-position: 48% center; background-attachment: scroll; }
       .card { border-radius: 22px; }
+    }
+
+    @media (max-width: 480px) and (orientation: portrait) {
+      body {
+        background-image: url("./assets/katschberg-iphone.jpg");
+        background-position: left center;
+      }
     }
 
     @media (orientation: portrait) {
