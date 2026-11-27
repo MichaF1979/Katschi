@@ -14,7 +14,6 @@
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       --ice: #f5fbff;
-      --gold: #ffd28b;
       --panel: rgba(8, 24, 39, .58);
     }
 
@@ -44,29 +43,6 @@
         linear-gradient(90deg, rgba(6, 24, 42, .22), transparent 70%);
     }
 
-    .settings-button {
-      position: fixed;
-      z-index: 2;
-      top: max(16px, env(safe-area-inset-top));
-      right: max(16px, env(safe-area-inset-right));
-      display: grid;
-      width: 48px;
-      height: 48px;
-      place-items: center;
-      border: 1px solid rgba(255, 255, 255, .35);
-      border-radius: 50%;
-      color: #fff;
-      background: rgba(8, 24, 39, .56);
-      backdrop-filter: blur(12px);
-      cursor: pointer;
-      font-size: 1.3rem;
-    }
-
-    .settings-button:focus-visible, button:focus-visible, input:focus-visible {
-      outline: 3px solid var(--gold);
-      outline-offset: 3px;
-    }
-
     main {
       width: min(100%, 720px);
       margin: auto;
@@ -74,38 +50,13 @@
     }
 
     .card {
-      padding: clamp(26px, 6vw, 52px);
+      padding: clamp(20px, 5vw, 40px);
       border: 1px solid rgba(255, 255, 255, .34);
       border-radius: 28px;
       background: var(--panel);
       box-shadow: 0 24px 80px rgba(0, 0, 0, .28);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      color: var(--gold);
-      font-size: .76rem;
-      font-weight: 750;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.2rem, 8vw, 4.5rem);
-      font-weight: 500;
-      line-height: 1.05;
-      text-shadow: 0 3px 20px rgba(0, 0, 0, .42);
-      text-wrap: balance;
-    }
-
-    .intro {
-      margin: 16px 0 30px;
-      color: rgba(245, 251, 255, .88);
-      font-size: clamp(.95rem, 2.5vw, 1.08rem);
     }
 
     .grid {
@@ -139,66 +90,6 @@
       text-transform: uppercase;
     }
 
-    #done {
-      margin: 24px 0 0;
-      color: var(--gold);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(1.6rem, 6vw, 2.5rem);
-    }
-
-    #done[hidden] { display: none; }
-
-    .target-date {
-      margin: 22px 0 0;
-      color: rgba(245, 251, 255, .76);
-      font-size: .88rem;
-    }
-
-    #panel {
-      position: fixed;
-      z-index: 3;
-      inset: auto 0 0;
-      display: grid;
-      gap: 12px;
-      padding: 22px 20px max(22px, env(safe-area-inset-bottom));
-      border: 1px solid rgba(255, 255, 255, .22);
-      border-bottom: 0;
-      border-radius: 22px 22px 0 0;
-      background: #10263a;
-      box-shadow: 0 -16px 60px rgba(0, 0, 0, .3);
-      transform: translateY(110%);
-      transition: transform .25s ease;
-    }
-
-    #panel.open { transform: translateY(0); }
-    #panel h2 { margin: 0 0 4px; font-size: 1.2rem; }
-    label { color: rgba(245, 251, 255, .86); font-size: .9rem; }
-
-    input {
-      width: 100%;
-      min-height: 46px;
-      padding: 10px 12px;
-      border: 1px solid rgba(255, 255, 255, .3);
-      border-radius: 10px;
-      color: #10263a;
-      background: #fff;
-      font: inherit;
-    }
-
-    #save {
-      min-height: 48px;
-      margin-top: 4px;
-      border: 0;
-      border-radius: 12px;
-      color: #10263a;
-      background: var(--gold);
-      cursor: pointer;
-      font: inherit;
-      font-weight: 750;
-    }
-
-    #message { min-height: 1.2em; margin: 0; color: var(--gold); font-size: .88rem; }
-
     @media (max-width: 480px) {
       body { padding-inline: 14px; background-position: 48% center; background-attachment: scroll; }
       .card { border-radius: 22px; }
@@ -227,127 +118,28 @@
   </style>
 </head>
 <body>
-  <button class="settings-button" id="gear" type="button" aria-label="Countdown-Einstellungen öffnen" aria-expanded="false" aria-controls="panel">⚙</button>
-
   <main>
-    <section class="card" aria-labelledby="title">
-      <p class="eyebrow">Winterzauber am Katschberg</p>
-      <h1 id="title">Skifahren</h1>
-      <p class="intro">Die Vorfreude läuft – der nächste besondere Moment ist schon in Sicht.</p>
-      <div class="grid" role="timer" aria-label="Verbleibende Zeit">
+    <section class="card" aria-label="Countdown">
+      <div class="grid" role="timer" aria-label="Countdown bis zum Skifahren">
         <div class="unit"><span class="number" id="d">0</span><span class="label">Tage</span></div>
         <div class="unit"><span class="number" id="h">00</span><span class="label">Stunden</span></div>
         <div class="unit"><span class="number" id="m">00</span><span class="label">Minuten</span></div>
         <div class="unit"><span class="number" id="s">00</span><span class="label">Sekunden</span></div>
       </div>
-      <p id="done" role="status" hidden>🎉 Es ist so weit! 🎉</p>
-      <p class="target-date" id="targetDate"></p>
     </section>
   </main>
 
-  <section id="panel" aria-labelledby="panelTitle" aria-hidden="true" inert>
-    <h2 id="panelTitle">Countdown anpassen</h2>
-    <label for="inTitle">Titel</label>
-    <input id="inTitle" maxlength="80" placeholder="z. B. Skifahren">
-    <label for="inDate">Zieldatum und Uhrzeit</label>
-    <input id="inDate" type="datetime-local" required>
-    <p id="message" role="status"></p>
-    <button id="save" type="button">Speichern</button>
-  </section>
-
   <script>
-    const $ = (id) => document.getElementById(id);
-    const defaultDate = "2026-12-28T10:00";
-    const storageKey = "katschberg-countdown";
-    let saved = {};
-
-    try {
-      const value = JSON.parse(localStorage.getItem(storageKey) || "{}");
-      if (value && typeof value === "object" && !Array.isArray(value)) saved = value;
-    } catch (error) {
-      console.warn("Gespeicherte Countdown-Einstellungen konnten nicht gelesen werden.", error);
-    }
-
-    const cfg = {
-      title: typeof saved.title === "string" && saved.title.trim() ? saved.title : "Skifahren",
-      date: typeof saved.date === "string" && !Number.isNaN(new Date(saved.date).getTime()) ? saved.date : defaultDate
-    };
-
-    function formatTargetDate(value) {
-      return new Intl.DateTimeFormat("de-DE", {
-        dateStyle: "long",
-        timeStyle: "short"
-      }).format(new Date(value));
-    }
-
-    function apply() {
-      $("title").textContent = cfg.title;
-      $("inTitle").value = cfg.title;
-      $("inDate").value = cfg.date;
-      $("targetDate").textContent = `Ziel: ${formatTargetDate(cfg.date)} Uhr`;
-      document.title = `${cfg.title} | Katschberg`;
-    }
+    const target = new Date("2026-12-28T10:00");
 
     function tick() {
-      const difference = new Date(cfg.date).getTime() - Date.now();
-      if (difference <= 0) {
-        ["d", "h", "m", "s"].forEach((id) => { $(id).textContent = id === "d" ? "0" : "00"; });
-        $("done").hidden = false;
-        return;
-      }
-
-      $("done").hidden = true;
-      const seconds = Math.floor(difference / 1000);
-      $("d").textContent = String(Math.floor(seconds / 86400));
-      $("h").textContent = String(Math.floor(seconds / 3600) % 24).padStart(2, "0");
-      $("m").textContent = String(Math.floor(seconds / 60) % 60).padStart(2, "0");
-      $("s").textContent = String(seconds % 60).padStart(2, "0");
+      const seconds = Math.max(0, Math.floor((target.getTime() - Date.now()) / 1000));
+      document.getElementById("d").textContent = String(Math.floor(seconds / 86400));
+      document.getElementById("h").textContent = String(Math.floor(seconds / 3600) % 24).padStart(2, "0");
+      document.getElementById("m").textContent = String(Math.floor(seconds / 60) % 60).padStart(2, "0");
+      document.getElementById("s").textContent = String(seconds % 60).padStart(2, "0");
     }
 
-    function setPanel(open) {
-      $("panel").classList.toggle("open", open);
-      $("panel").setAttribute("aria-hidden", String(!open));
-      $("panel").inert = !open;
-      $("gear").setAttribute("aria-expanded", String(open));
-      $("gear").setAttribute("aria-label", open ? "Countdown-Einstellungen schließen" : "Countdown-Einstellungen öffnen");
-      if (open) $("inTitle").focus();
-    }
-
-    $("gear").addEventListener("click", () => {
-      setPanel($("panel").getAttribute("aria-hidden") === "true");
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && $("panel").classList.contains("open")) setPanel(false);
-    });
-
-    $("save").addEventListener("click", () => {
-      const title = $("inTitle").value.trim() || "Countdown";
-      const date = $("inDate").value;
-      if (!date || Number.isNaN(new Date(date).getTime())) {
-        $("message").textContent = "Bitte gib ein gültiges Zieldatum mit Uhrzeit ein.";
-        $("inDate").focus();
-        return;
-      }
-
-      const next = { title, date };
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(next));
-      } catch (error) {
-        console.error("Countdown-Einstellungen konnten nicht gespeichert werden.", error);
-        $("message").textContent = "Einstellungen konnten nicht gespeichert werden. Bitte prüfe den Speicherplatz im Browser.";
-        return;
-      }
-
-      cfg.title = next.title;
-      cfg.date = next.date;
-      $("message").textContent = "";
-      apply();
-      tick();
-      setPanel(false);
-    });
-
-    apply();
     tick();
     window.setInterval(tick, 1000);
   </script>
