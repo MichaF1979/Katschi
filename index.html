@@ -44,38 +44,41 @@
     }
 
     main {
-      width: min(100%, 720px);
-      margin: auto;
+      position: fixed;
+      top: max(16px, env(safe-area-inset-top));
+      right: max(16px, env(safe-area-inset-right));
+      width: min(240px, calc(100vw - 32px));
+      margin: 0;
       text-align: center;
     }
 
     .card {
-      padding: clamp(20px, 5vw, 40px);
+      padding: 12px;
       border: 1px solid rgba(255, 255, 255, .34);
-      border-radius: 28px;
+      border-radius: 14px;
       background: var(--panel);
-      box-shadow: 0 24px 80px rgba(0, 0, 0, .28);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .28);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: clamp(8px, 2vw, 14px);
+      gap: 4px;
     }
 
     .unit {
       min-width: 0;
-      padding: clamp(12px, 3vw, 20px) 4px;
+      padding: 8px 2px;
       border: 1px solid rgba(255, 255, 255, .2);
-      border-radius: 16px;
+      border-radius: 8px;
       background: rgba(245, 251, 255, .12);
     }
 
     .number {
       display: block;
-      font-size: clamp(1.7rem, 7vw, 3rem);
+      font-size: clamp(1rem, 2vw, 1.5rem);
       font-variant-numeric: tabular-nums;
       font-weight: 750;
       line-height: 1.1;
@@ -83,16 +86,15 @@
 
     .label {
       display: block;
-      margin-top: 7px;
+      margin-top: 4px;
       color: rgba(245, 251, 255, .8);
-      font-size: clamp(.62rem, 2.2vw, .76rem);
-      letter-spacing: .1em;
+      font-size: clamp(.48rem, .8vw, .6rem);
+      letter-spacing: .06em;
       text-transform: uppercase;
     }
 
     @media (max-width: 480px) {
       body { padding-inline: 14px; background-position: 48% center; background-attachment: scroll; }
-      .card { border-radius: 22px; }
     }
 
     @media (max-width: 480px) and (orientation: portrait) {
@@ -100,16 +102,6 @@
         background-image: url("./assets/katschberg-iphone.jpg");
         background-position: left center;
       }
-    }
-
-    @media (orientation: portrait) {
-      main { width: min(100%, 560px); }
-      .grid {
-        max-width: 420px;
-        margin-inline: auto;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .card { padding-block: clamp(30px, 6vh, 52px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
